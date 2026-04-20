@@ -3,6 +3,14 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import LoginGate from "../components/LoginGate";
 
+// ─────────────────────────────────────────────────────────────────────────────
+// ★ CONVERSATION MEMORY SETTINGS
+//   MAX_HISTORY  - maximum number of messages to include as context (default: 20)
+//   MAX_AGE_MS   - messages older than this are excluded (default: 24 hours)
+const MAX_HISTORY = 20;
+const MAX_AGE_MS = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+// ─────────────────────────────────────────────────────────────────────────────
+
 const s = {
   page: { minHeight: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)" },
   header: { borderBottom: "1px solid var(--border)", padding: "14px 28px", display: "flex", alignItems: "center", justifyContent: "space-between" },
@@ -30,6 +38,7 @@ const s = {
     color: role === "user" ? "var(--text)" : "#c8c0b0",
     fontSize: 14, lineHeight: 1.7, whiteSpace: "pre-wrap"
   }),
+  timestamp: { fontSize: 10, color: "var(--text-muted)", marginTop: 4, textAlign: "right" },
   sources: { marginTop: 8, display: "flex", flexWrap: "wrap", gap: 4 },
   sourceTag: { fontSize: 11, padding: "2px 8px", borderRadius: 4, background: "var(--surface)", border: "1px solid var(--border2)", color: "var(--text-muted)" },
   thinking: { padding: "12px 16px", borderRadius: 10, background: "var(--surface2)", border: "1px solid var(--border)", color: "var(--text-muted)", fontSize: 14, animation: "pulse 1.4s ease-in-out infinite" },
@@ -46,6 +55,11 @@ const s = {
   hint: { fontSize: 11, color: "var(--text-muted)", marginTop: 8, textAlign: "center" }
 };
 
+function formatTime(ts) {
+  if (!ts) return "";
+  return new Date(ts).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
 export default function Chat() {
   const [authed, setAuthed] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -61,15 +75,22 @@ export default function Chat() {
       .then(r => { if (r.status !== 401) setAuthed(true); });
   }, []);
 
+  const getHistory = () => {
+    const cutoff = Date.now() - MAX_AGE_MS;
+    return messages
+      .filter(m => m.timestamp && m.timestamp > cutoff)
+      .slice(-MAX_HISTORY);
+  };
+
   const send = async () => {
     const q = input.trim();
     if (!q || loading) return;
     setInput("");
-    const userMsg = { role: "user", content: q };
+    const userMsg = { role: "user", content: q, timestamp: Date.now() };
     setMessages(prev => [...prev, userMsg]);
     setLoading(true);
     try {
-      const history = messages.slice(-6);
+      const history = getHistory();
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -77,9 +98,18 @@ export default function Chat() {
       });
       const data = await res.json();
       if (data.error) throw new Error(data.error);
-      setMessages(prev => [...prev, { role: "assistant", content: data.answer, sources: data.sources }]);
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: data.answer,
+        sources: data.sources,
+        timestamp: Date.now()
+      }]);
     } catch (err) {
-      setMessages(prev => [...prev, { role: "assistant", content: `Error: ${err.message}` }]);
+      setMessages(prev => [...prev, {
+        role: "assistant",
+        content: `Error: ${err.message}`,
+        timestamp: Date.now()
+      }]);
     }
     setLoading(false);
   };
@@ -116,6 +146,7 @@ export default function Chat() {
                     {m.sources.map(src => <span key={src} style={s.sourceTag}>📄 {src}</span>)}
                   </div>
                 )}
+                <div style={s.timestamp}>{formatTime(m.timestamp)}</div>
               </div>
             </div>
           ))}
@@ -137,7 +168,7 @@ export default function Chat() {
             />
             <button style={s.sendBtn(!input.trim() || loading)} onClick={send} disabled={!input.trim() || loading}>→</button>
           </div>
-          <div style={s.hint}>Answers are grounded in the indexed papers only.</div>
+          <div style={s.hint}>Answers are grounded in the indexed papers only · Context: last {MAX_HISTORY} messages within 24 hours</div>
         </div>
       </div>
     </div>
