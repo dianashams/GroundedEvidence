@@ -50,26 +50,33 @@ const papers = [
   },
 
 
+
 {
-     id: "IJMI2023",
-    title: "Predicting type 2 diabetes prevalence for people with severe mental illness in a multi-ethnic East London population",
-    authors: "Shamsutdinova D, Das-Munshi J, Ashworth M, Roberts A, Stahl D",
-    year: 2023, 
-    journal: "International Journal of Medical Informatics",
-    abstract: "Background and aims. Prevalence of type two diabetes mellitus (T2DM) in people with severe mental illness (SMI) is 2–3 times higher than in general population. Predictive modelling has advanced greatly in the past decade, and it is important to apply cutting-edge methods to vulnerable groups. However, few T2DM prediction models account for the presence of mental illness, and none seemed to have been developed specifically for people with SMI. Therefore, we aimed to develop and internally validate a T2DM prevalence model for people with SMI. 
-Methods.  We utilised a large cross-sectional sample representative of a multi-ethnic population from London (674,000 adults); 10,159 people with SMI formed our analytical sample (1,513 T2DM cases). We fitted a linear logistic regression and XGBoost as stand-alone models and as a stacked ensemble. Age, sex, body mass index, ethnicity, area-based deprivation, past hypertension, cardiovascular diseases, prescribed antipsychotics, and SMI illness were the predictors.
-Results. Logistic regression performed well while detecting T2DM presence for people with SMI: area under the receiver operator curve (ROC-AUC) was 0.83 (95 % CI 0.79–0.87). XGBoost and LR-XGBoost ensemble performed equally well, ROC-AUC 0.83 (95 % CI 0.79–0.87), indicating a negligible contribution of non-linear terms to predictive power. Ethnicity was the most important predictor after age. We demonstrated how the derived models can be utilised and estimated a 2.14 % (95 %CI 2.03 %-2.24 %) increase in T2DM prevalence in East London SMI population in 20 years’ time, driven by the projected demographic changes.
-Conclusions. Primary care data, the setting where prediction models could be most fruitfully used, provide enough information for well-performing T2DM prevalence models for people with SMI. We demonstrated how thorough internal cross-validation of an ensemble of a linear and machine-learning model can quantify the predictive value of non-linearity in the data.",
-     keyFindings: [
-       "Type 2 diabetes mellitus (T2DM) is common in people with severe mental illness.",
-	"Few T2DM prediction models include severe mental illness (SMI); none seem to target SMI.",
-	"We derived T2DM prevalence model for people with SMI living in East London.",
-	"UK primary care data can be used to develop well-performing models for SMI.",
-	"Ensemble of a linear and a machine-learning model can help quantify data non-linearity.", 
-	"An ensemble of a linear and a machine-learning model can be employed to quantify predictive value of non-linearity and assist model selection."
-     ],
-     pdfUrl: "https://www.sciencedirect.com/science/article/pii/S1386505623000369",
-   },
+  id: "IJMI2023",
+  title: "Predicting type 2 diabetes prevalence for people with severe mental illness in a multi-ethnic East London population",
+  authors: "Shamsutdinova D, Das-Munshi J, Ashworth M, Roberts A, Stahl D",
+  year: 2023,
+  journal: "International Journal of Medical Informatics",
+  abstract: `
+Background and aims. Prevalence of type two diabetes mellitus (T2DM) in people with severe mental illness (SMI) is 2–3 times higher than in the general population. Predictive modelling has advanced greatly in the past decade, and it is important to apply cutting-edge methods to vulnerable groups. However, few T2DM prediction models account for the presence of mental illness, and none have been developed specifically for people with SMI. Therefore, we aimed to develop and internally validate a T2DM prevalence model for people with SMI.
+
+Methods. We utilised a large cross-sectional sample representative of a multi-ethnic population from London (674,000 adults). A total of 10,159 people with SMI formed our analytical sample, including 1,513 T2DM cases. We fitted a linear logistic regression and XGBoost as stand-alone models and as a stacked ensemble. Predictors included age, sex, body mass index, ethnicity, area-based deprivation, past hypertension, cardiovascular diseases, prescribed antipsychotics, and SMI illness characteristics.
+
+Results. Logistic regression performed well in detecting T2DM presence for people with SMI, with an area under the receiver operating characteristic curve (ROC-AUC) of 0.83 (95% CI 0.79–0.87). XGBoost and the LR–XGBoost ensemble performed equally well, indicating a negligible contribution of non-linear terms to predictive power. Ethnicity was the most important predictor after age. Using the model, we estimated a 2.14% (95% CI 2.03–2.24%) increase in T2DM prevalence in the East London SMI population over the next 20 years, driven by projected demographic change.
+
+Conclusions. Primary care data provide sufficient information for well-performing T2DM prevalence models in people with SMI. Thorough internal cross-validation of linear and machine-learning models can help quantify the predictive value of non-linearity in routinely collected healthcare data.
+`,
+
+  keyFindings: [
+    "Logistic regression predicted T2DM in people with SMI with good discrimination (ROC-AUC 0.83).",
+    "Machine-learning models and stacked ensembles did not improve performance over linear models.",
+    "Ethnicity was the strongest predictor of T2DM after age.",
+    "Primary care data are sufficient for building accurate diabetes prevalence models for SMI.",
+    "Demographic change alone may increase T2DM prevalence in people with SMI by ~2% over 20 years."
+  ],
+  pdfUrl: "https://www.sciencedirect.com/science/article/pii/S1386505623000369",
+},
+
 
 
 { 
@@ -94,10 +101,10 @@ Conclusion.  Our results suggest low contribution of the intrinsic biological me
 
 { 
    id: "DiabeticMedicine2016",
-    title: "Predicting type 2 diabetes prevalence for people with severe mental illness in a multi-ethnic East London population",
-    authors: "Shamsutdinova D, Ajnakina O, Roberts A, Stahl D",
+    title: "Type 2 diabetes mellitus in people with severe mental illness: inequalities by ethnicity and age. Cross-sectional analysis of 588 408 records from the UK",
+    authors: "Das-Munshi J, Ashworth M, Dewey M, Gaughran F, Hull S, Morgan C, Nazroo J, Petersen I,  Schofield P, Stewart R, Thornicroft G, Prince M",
     year: 2016, 
-    journal: "Psychiatric Genetics",
+    journal: "Diabetic Medicine",
     abstract: "Aims. To investigate whether the association of severe mental illness with Type 2 diabetes varies by ethnicity and age. Methods. We conducted a cross-sectional analysis of data from an ethnically diverse sample of 588 408 individuals aged ≥18 years, registered to 98% of general practices (primary care) in London, UK. The outcome of interest was prevalent Type 2 diabetes. Results. Relative to people without severe mental illness, the relative risk of Type 2 diabetes in people with severe mental illness was greatest in the youngest age groups. In the white British group the relative risks were 9.99 (95% CI 5.34, 18.69) in those aged 18–34 years, 2.89 (95% CI 2.43, 3.45) in those aged 35–54 years and 1.16 (95% CI 1.04, 1.30) in those aged ≥55 years, with similar trends across all ethnic minority groups. Additional adjustment for anti-psychotic prescriptions only marginally attenuated the associations. Assessment of estimated prevalence of Type 2 diabetes in severe mental illness by ethnicity (absolute measures of effect) indicated that the association between severe mental illness and Type 2 diabetes was more marked in ethnic minorities than in the white British group with severe mental illness, especially for Indian, Pakistani and Bangladeshi individuals with severe mental illness. Conclusions. The relative risk of Type 2 diabetes is elevated in younger populations. Most associations persisted despite adjustment for anti-psychotic prescriptions. Ethnic minority groups had a higher prevalence of Type 2 diabetes in the presence of severe mental illness. Future research and policy, particularly with respect to screening and clinical care for Type 2 diabetes in populations with severe mental illness, should take these findings into account.",
 
      keyFindings: [ "Severe mental illness (SMI) is linked to much higher diabetes risk: Overall 16.0% of people with SMI had type 2 diabetes, compared with 7.6% of people without SMI.", 
@@ -135,7 +142,7 @@ group, for which the reasons deserve further investigation.",
     authors: "Cybulski L, Chilman N, Jewell A, Dewey M, Hildersley R, Morgan C, Huck R, Hotopf M, Stewart R, Pritchard M, Wuerth M, Das-­Munshi J",
     year: 2023, 
     journal: "BMJ Open",
-    abstract: "Objectives To address the lack of individual-¬level socioeconomic information in electronic healthcare records, we linked the 2011 census of England and Wales to patient records from a large mental healthcare provider. This paper describes the linkage process and methods for mitigating bias due to non-¬ matching. Setting South London and Maudsley NHS Foundation Trust (SLaM), a mental healthcare provider in Southeast London. Design Clinical records from SLaM were supplied to the Office of National Statistics for linkage to the census through a deterministic matching algorithm. We examined clinical (International Classification of Disease-¬ 10 diagnosis, history of hospitalisation, frequency of servicecontact) and socio-¬ demographic (age, gender, ethnicity, deprivation) information recorded in Clinical Record Interactive Search (CRIS) as predictors of linkage success with the 2011 census. To assess and adjust for potential biases caused by non-¬ matching, we evaluated inverse probability weighting for mortality associations. Participants Individuals of all ages in contact with SLaM up until December 2019 (N=459 374). Outcome measures Likelihood of mental health records’ linkage to census. Results 220 864 (50.4%) records from CRIS linked to the 2011 census. Young adults (prevalence ratio (PR) 0.80, 95% CI 0.80 to 0.81), individuals living in more deprived areas (PR 0.78, 95% CI 0.78 to 0.79) and minority ethnic groups (eg, Black African, PR 0.67, 0.66 to 0.68) were less likely to match to census. After implementing inverse probability weighting, we observed little change in the strength of association between clinical/demographic characteristics and mortality (eg, presence of any psychiatric disorder: unweighted PR 2.66, 95% CI 2.52 to 2.80; weighted PR 2.70, 95% CI 2.56 to 2.84). Conclusions Lower response rates to the 2011 census among people with psychiatric disorders may have contributed to lower match rates, a potential concern as the census informs service planning and allocation of resources. Due to its size and unique characteristics, the linked data set will enable novel investigations into the relationship between socioeconomic factors and psychiatric disorders. STRENGTHS AND LIMITATIONS:  This is the first time mental healthcare electronic records have been linked to the Office of National Statistics census at the individual-­ level in England. Due to its scale, ethnic diversity and demographic characteristics and abundance of detailed information on a variety of socioeconomic and demographic indicators acquired through the linkage to census records, this data set will enable novel investigations into the causes, trajectories and outcomes of psychiatric disorders. A significant strength of the study is that we could assess and adjust for potential biases caused by non-­ matching related to age, gender and deprivation. While we observed differences between individuals that matched to census, and those that did not, our weighted analyses were able to show that these differences did not substantially alter associations with mortality outcomes. Due to the nature of the deterministic linkage algorithm, we could not determine the causes ofnon-­linkage.",
+    abstract: "Objectives To address the lack of individual-¬level socioeconomic information in electronic healthcare records, we linked the 2011 census of England and Wales to patient records from a large mental healthcare provider. This paper describes the linkage process and methods for mitigating bias due to non-¬ matching. Setting South London and Maudsley NHS Foundation Trust (SLaM), a mental healthcare provider in Southeast London. Design Clinical records from SLaM were supplied to the Office of National Statistics for linkage to the census through a deterministic matching algorithm. We examined clinical (International Classification of Disease- 10 diagnosis, history of hospitalisation, frequency of servicecontact) and socio-demographic (age, gender, ethnicity, deprivation) information recorded in Clinical Record Interactive Search (CRIS) as predictors of linkage success with the 2011 census. To assess and adjust for potential biases caused by non-matching, we evaluated inverse probability weighting for mortality associations. Participants Individuals of all ages in contact with SLaM up until December 2019 (N=459 374). Outcome measures Likelihood of mental health records’ linkage to census. Results 220 864 (50.4%) records from CRIS linked to the 2011 census. Young adults (prevalence ratio (PR) 0.80, 95% CI 0.80 to 0.81), individuals living in more deprived areas (PR 0.78, 95% CI 0.78 to 0.79) and minority ethnic groups (eg, Black African, PR 0.67, 0.66 to 0.68) were less likely to match to census. After implementing inverse probability weighting, we observed little change in the strength of association between clinical/demographic characteristics and mortality (eg, presence of any psychiatric disorder: unweighted PR 2.66, 95% CI 2.52 to 2.80; weighted PR 2.70, 95% CI 2.56 to 2.84). Conclusions Lower response rates to the 2011 census among people with psychiatric disorders may have contributed to lower match rates, a potential concern as the census informs service planning and allocation of resources. Due to its size and unique characteristics, the linked data set will enable novel investigations into the relationship between socioeconomic factors and psychiatric disorders. STRENGTHS AND LIMITATIONS:  This is the first time mental healthcare electronic records have been linked to the Office of National Statistics census at the individual-­ level in England. Due to its scale, ethnic diversity and demographic characteristics and abundance of detailed information on a variety of socioeconomic and demographic indicators acquired through the linkage to census records, this data set will enable novel investigations into the causes, trajectories and outcomes of psychiatric disorders. A significant strength of the study is that we could assess and adjust for potential biases caused by non-­ matching related to age, gender and deprivation. While we observed differences between individuals that matched to census, and those that did not, our weighted analyses were able to show that these differences did not substantially alter associations with mortality outcomes. Due to the nature of the deterministic linkage algorithm, we could not determine the causes of non-­linkage.",
 
      keyFindings: [
   "Around half of mental health records successfully linked to census data: 220,864 of 459,374 records matched to the 2011 UK census (50.4%).",
@@ -147,9 +154,7 @@ group, for which the reasons deserve further investigation.",
      pdfUrl: "https://bmjopen.bmj.com/content/bmjopen/14/1/e073582.full.pdf",
 }
 
-
 ];
-
 
 
 export default papers;
