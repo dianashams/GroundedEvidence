@@ -11,8 +11,8 @@ const s = {
   input: { width: "100%", background: "var(--surface2)", border: "1px solid var(--border2)", borderRadius: 7, padding: "10px 14px", color: "var(--text)", fontSize: 15, outline: "none", marginBottom: 16 },
   btn: { width: "100%", background: "var(--gold)", border: "none", borderRadius: 7, padding: "11px", color: "#0d0f14", fontWeight: 700, fontSize: 15, letterSpacing: "0.04em" },
   err: { color: "var(--red)", fontSize: 13, marginBottom: 12 },
-  divider: { height: 1, background: "var(--border)", margin: "20px 0" },
-  adminLink: { fontSize: 12, color: "var(--text-muted)", textAlign: "center", display: "block", textDecoration: "none" }
+  divider: { height: 1, background: "var(--border)", margin: "16px 0" },
+  link: { fontSize: 12, color: "var(--text-muted)", textAlign: "center", display: "block", textDecoration: "none", marginTop: 8 }
 };
 
 export default function LoginGate({ type = "visitor", onSuccess }) {
@@ -49,11 +49,10 @@ export default function LoginGate({ type = "visitor", onSuccess }) {
         <button style={s.btn} onClick={submit} disabled={loading}>
           {loading ? "Checking…" : "Enter"}
         </button>
+        <div style={s.divider} />
+        <a href="/" style={s.link}>← Back to Papers</a>
         {type === "visitor" && (
-          <>
-            <div style={s.divider} />
-            <a href="/admin" style={s.adminLink}>Admin →</a>
-          </>
+          <a href="/admin" style={s.link}>Admin →</a>
         )}
       </div>
     </div>
