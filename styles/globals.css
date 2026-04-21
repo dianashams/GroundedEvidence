@@ -2,21 +2,21 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #ededed;
-  --surface: #f7f7f7;
-  --surface2: #eeeeee;
-  --border: #dddddd;
-  --border2: #cccccc;
-  --gold: #9a7c3a;      
-  --gold-dim: #9a7c3a33;
-  --text: #000000;  
-  --text-dim: #666666;
-  --text-muted: #666666;
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --surface2: #eeece8;
+  --border: #dddbd4;
+  --border2: #ccc9c0;
+  --gold: #9a6e2e;
+  --gold-dim: #9a6e2e22;
+  --text: #1a1a14;
+  --text-dim: #4a4840;
+  --text-muted: #8a8880;
   --red: #c0392b;
-  --green: #2e7d32;
+  --green: #27694a;
 }
 
-html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Georgia', 'Times New Roman', serif; }
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'Georgia', 'Times New Roman', serif; font-size: 18px; }
 
 button { cursor: pointer; font-family: inherit; }
 input, textarea { font-family: inherit; }
