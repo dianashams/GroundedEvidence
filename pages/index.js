@@ -166,6 +166,24 @@ function ChatPanel() {
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export default function Home() {
+  const [split, setSplit] = useState(70);
+  const containerRef = useRef();
+
+  const startDrag = (e) => {
+    e.preventDefault();
+    const onMove = (e) => {
+      const rect = containerRef.current.getBoundingClientRect();
+      const pct = ((e.clientY - rect.top) / rect.height) * 100;
+      setSplit(Math.min(85, Math.max(15, pct)));
+    };
+    const onUp = () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+  };
+
   return (
     <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "var(--bg)", overflow: "hidden" }}>
 
@@ -177,32 +195,45 @@ export default function Home() {
         </span>
       </nav>
 
-      {/* Split layout */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+      {/* Split layout — draggable */}
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }} ref={containerRef}>
 
-        {/* Top 60% — Papers */}
-        <div style={{ height: "60%", overflowY: "auto", borderBottom: "2px solid var(--border)" }}>
+        {/* Top panel — Papers */}
+        <div style={{ height: `${split}%`, overflowY: "auto", borderBottom: "2px solid var(--border)" }}>
           <div style={{ maxWidth: 860, margin: "0 auto", padding: "24px 24px 32px" }}>
- 	 {/* Hero */}
- 	 <div style={{ textAlign: "center", padding: "32px 24px 40px" }}>
-   	 <h1 style={{ fontSize: 34, fontWeight: 700, color: "var(--text)", lineHeight: 1.25, marginBottom: 12, letterSpacing: "-0.5px" }}>
-     	 Research answers grounded<br />in selected evidence
-    	</h1>
-    	<p style={{ fontSize: 15, color: "var(--text-dim)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
-     	 Ask questions and get answers drawn exclusively from a curated set of peer-reviewed health research papers. Every answer is traceable to its source.
-   	 </p>
- 	 </div>
 
-  	{/* Papers */}
- 	 <div style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
-   	 Indexed papers — {papers.length} source{papers.length !== 1 ? "s" : ""}
- 	 </div>
-  	{papers.map(p => <PaperCard key={p.id} paper={p} />)}
-	</div>
+            {/* Hero */}
+            <div style={{ textAlign: "center", padding: "32px 24px 40px" }}>
+              <h1 style={{ fontSize: 34, fontWeight: 700, color: "var(--text)", lineHeight: 1.25, marginBottom: 12, letterSpacing: "-0.5px" }}>
+                Research answers grounded<br />in selected evidence
+              </h1>
+              <p style={{ fontSize: 15, color: "var(--text-dim)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
+                Ask questions and get answers drawn exclusively from a curated set of peer-reviewed health research papers. Every answer is traceable to its source.
+              </p>
+            </div>
+
+            {/* Papers list */}
+            <div style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
+              Indexed papers — {papers.length} source{papers.length !== 1 ? "s" : ""}
+            </div>
+            {papers.map(p => <PaperCard key={p.id} paper={p} />)}
+          </div>
         </div>
 
-        {/* Bottom 40% — Chat */}
-        <div style={{ height: "40%", overflow: "hidden" }}>
+        {/* Drag handle */}
+        <div
+          onMouseDown={startDrag}
+          style={{
+            height: 8, cursor: "row-resize", background: "var(--border2)",
+            flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center",
+            userSelect: "none"
+          }}
+        >
+          <div style={{ width: 40, height: 3, borderRadius: 2, background: "var(--text-muted)", opacity: 0.4 }} />
+        </div>
+
+        {/* Bottom panel — Chat */}
+        <div style={{ flex: 1, overflow: "hidden" }}>
           <ChatPanel />
         </div>
 
