@@ -7,14 +7,11 @@
   --surface2: #eeeeee;
   --border: #dddddd;
   --border2: #cccccc;
-
-  --gold: #9a7c3a;        /* optional accent */
-  --gold-dim: #9a7c3a33;  /*#9a7c3a33; /*
-
-  --text: #000000;  /* #333333 — Dark grey, #666666 — Medium grey */
-  --text-dim: #333333;
+  --gold: #9a7c3a;      
+  --gold-dim: #9a7c3a33;
+  --text: #000000;  
+  --text-dim: #666666;
   --text-muted: #666666;
-
   --red: #c0392b;
   --green: #2e7d32;
 }
@@ -54,14 +51,11 @@ NEW LIGHT THEME
   --surface2: #eeeeee;
   --border: #dddddd;
   --border2: #cccccc;
-
-  --gold: #9a7c3a;        /* optional accent */
-  --gold-dim: #9a7c3a33;  /*#9a7c3a33; /*
-
-  --text: #000000;  /* #333333 — Dark grey, #666666 — Medium grey */
+  --gold: #9a7c3a;      
+  --gold-dim: #9a7c3a33;
+  --text: #000000;  
   --text-dim: #666666;
   --text-muted: #666666;
-
   --red: #c0392b;
   --green: #2e7d32;
 }
