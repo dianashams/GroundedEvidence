@@ -35,7 +35,7 @@ const s = {
     maxWidth: "78%", padding: "12px 16px", borderRadius: 10,
     background: role === "user" ? "var(--gold-dim)" : "var(--surface2)",
     border: `1px solid ${role === "user" ? "var(--gold)33" : "var(--border)"}`,
-    color: role === "user" ? "var(--text)" : "#c8c0b0",
+    color: role === "user" ? "var(--text)" : "var(--text-dim)",
     fontSize: 14, lineHeight: 1.7, whiteSpace: "pre-wrap"
   }),
   timestamp: { fontSize: 10, color: "var(--text-muted)", marginTop: 4, textAlign: "right" },
@@ -48,7 +48,7 @@ const s = {
   sendBtn: (disabled) => ({
     background: disabled ? "var(--surface2)" : "var(--gold)",
     border: "none", borderRadius: 8, padding: "0 20px",
-    color: disabled ? "var(--text-muted)" : "#0d0f14",
+    color: disabled ? "var(--text-muted)" : "var(--text-dim)",
     fontSize: 18, fontWeight: 700, cursor: disabled ? "default" : "pointer",
     transition: "all 0.15s", alignSelf: "stretch", minWidth: 52
   }),
