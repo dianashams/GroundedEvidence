@@ -1,5 +1,6 @@
 // pages/api/chat.js
 import { checkVisitorAuth, checkAdminAuth } from "../../lib/auth";
+import meta from "../../data/meta";
 const { retrieve } = require("../../lib/rag");
 
 export default async function handler(req, res) {
@@ -8,7 +9,7 @@ export default async function handler(req, res) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const { question, history = [], model = "claude" } = req.body;
+  const { question, history = [], model = "gpt4" } = req.body;
   if (!question) return res.status(400).json({ error: "No question provided" });
 
   // Retrieve relevant chunks
@@ -20,20 +21,38 @@ export default async function handler(req, res) {
     });
   }
 
-  const context = chunks
+  // Build meta context from the collection summary
+  const metaContext = `
+COLLECTION OVERVIEW:
+${meta.collectionSummary.trim()}
+
+PAPER SUMMARIES:
+${meta.paperSummaries.map(p => `• ${p.shortTitle}: ${p.contribution.trim()}`).join("\n\n")}
+
+CROSS-CUTTING THEMES ACROSS PAPERS:
+${meta.crossCuttingThemes.map(t => `• ${t}`).join("\n")}
+`.trim();
+
+  // Build retrieved excerpt context
+  const excerptContext = chunks
     .map((c, i) => `[Excerpt ${i + 1} — "${c.source}"]\n${c.text}`)
     .join("\n\n---\n\n");
 
-  const systemPrompt = `You are a research assistant. Your job is to answer questions strictly and exclusively based on the excerpts from scientific papers provided below.
+  const systemPrompt = `You are a research assistant with expertise in the collection of scientific papers described below. Your job is to answer questions based on this collection.
 
-STRICT RULES:
-1. ONLY use information found in the excerpts below. Do not use any outside knowledge.
-2. If the answer cannot be found in the excerpts, respond with exactly: "I cannot answer this question given the papers provided."
-3. Always cite the source paper for every claim, referencing the excerpt label (e.g. "According to Excerpt 2 from 'paper.pdf'...").
-4. Do not speculate, infer beyond what is written, or combine with general knowledge.
+RULES:
+1. Use the COLLECTION OVERVIEW and PAPER SUMMARIES to answer broad, comparative, or cross-paper questions (e.g. "which paper has the most evidence about X", "what do the papers collectively say about Y").
+2. Use the RETRIEVED EXCERPTS for specific factual questions — cite excerpt labels (e.g. "According to Excerpt 2 from 'paper.pdf'...").
+3. You may reason across papers collectively and synthesise findings, as long as your reasoning stays grounded in the collection.
+4. Do not use outside knowledge beyond what is provided here. If a question cannot be answered from the collection at all, say: "I cannot answer this question given the papers provided."
+5. For comparative questions, explicitly name which paper(s) provide the strongest evidence and why.
 
-EXCERPTS FROM PAPERS:
-${context}`;
+─────────────────────────────────
+${metaContext}
+
+─────────────────────────────────
+RETRIEVED EXCERPTS (most relevant chunks for this query):
+${excerptContext}`;
 
   try {
     let answer;
