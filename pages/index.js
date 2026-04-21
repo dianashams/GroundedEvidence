@@ -183,11 +183,22 @@ export default function Home() {
         {/* Top 60% — Papers */}
         <div style={{ height: "60%", overflowY: "auto", borderBottom: "2px solid var(--border)" }}>
           <div style={{ maxWidth: 860, margin: "0 auto", padding: "24px 24px 32px" }}>
-            <div style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
-              Indexed papers — {papers.length} source{papers.length !== 1 ? "s" : ""}
-            </div>
-            {papers.map(p => <PaperCard key={p.id} paper={p} />)}
-          </div>
+ 	 {/* Hero */}
+ 	 <div style={{ textAlign: "center", padding: "32px 24px 40px" }}>
+   	 <h1 style={{ fontSize: 34, fontWeight: 700, color: "var(--text)", lineHeight: 1.25, marginBottom: 12, letterSpacing: "-0.5px" }}>
+     	 Research answers grounded<br />in selected evidence
+    	</h1>
+    	<p style={{ fontSize: 15, color: "var(--text-dim)", lineHeight: 1.7, maxWidth: 520, margin: "0 auto" }}>
+     	 Ask questions and get answers drawn exclusively from a curated set of peer-reviewed health research papers. Every answer is traceable to its source.
+   	 </p>
+ 	 </div>
+
+  	{/* Papers */}
+ 	 <div style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: 20 }}>
+   	 Indexed papers — {papers.length} source{papers.length !== 1 ? "s" : ""}
+ 	 </div>
+  	{papers.map(p => <PaperCard key={p.id} paper={p} />)}
+	</div>
         </div>
 
         {/* Bottom 40% — Chat */}
