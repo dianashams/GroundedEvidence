@@ -9,13 +9,13 @@ const s = {
   subtitle: { fontSize: 13, color: "var(--text-muted)", marginBottom: 28, letterSpacing: "0.08em", textTransform: "uppercase" },
   label: { fontSize: 12, color: "var(--text-dim)", marginBottom: 6, display: "block", letterSpacing: "0.06em" },
   input: { width: "100%", background: "var(--surface2)", border: "1px solid var(--border2)", borderRadius: 7, padding: "10px 14px", color: "var(--text)", fontSize: 15, outline: "none", marginBottom: 16 },
-  btn: { width: "100%", background: "var(--gold)", border: "none", borderRadius: 7, padding: "11px", color: "#0d0f14", fontWeight: 700, fontSize: 15, letterSpacing: "0.04em" },
+  btn: { width: "100%", background: "var(--gold)", border: "none", borderRadius: 7, padding: "11px", color: "#fff", fontWeight: 700, fontSize: 15, letterSpacing: "0.04em", cursor: "pointer" },
   err: { color: "var(--red)", fontSize: 13, marginBottom: 12 },
   divider: { height: 1, background: "var(--border)", margin: "16px 0" },
   link: { fontSize: 12, color: "var(--text-muted)", textAlign: "center", display: "block", textDecoration: "none", marginTop: 8 }
 };
 
-export default function LoginGate({ type = "visitor", onSuccess }) {
+export default function LoginGate({ type = "visitor", onSuccess, embedded = false }) {
   const [pw, setPw] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,6 +33,26 @@ export default function LoginGate({ type = "visitor", onSuccess }) {
     setLoading(false);
   };
 
+  // Embedded version (used inside the chat panel on the home page)
+  if (embedded) {
+    return (
+      <div>
+        {err && <div style={s.err}>{err}</div>}
+        <label style={s.label}>Password to access chat</label>
+        <input
+          style={s.input} type="password" value={pw}
+          onChange={e => setPw(e.target.value)}
+          onKeyDown={e => e.key === "Enter" && submit()}
+          placeholder="Enter password"
+        />
+        <button style={s.btn} onClick={submit} disabled={loading}>
+          {loading ? "Checking…" : "Unlock Chat"}
+        </button>
+      </div>
+    );
+  }
+
+  // Full-page version (used on /admin and /chat standalone pages)
   return (
     <div style={s.wrap}>
       <div style={s.card}>
